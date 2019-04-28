@@ -162,14 +162,15 @@ public class Juego_Vida {
 
     
     
-            
+    // método que genera la matriz de celula en base al número entero que introduce el usuario por teclado
+    // el máximo valor que puede tomar este número es 25 y el minimo 7
     public void generacionPorValor() {
         Scanner teclado = new Scanner(System.in);
         System.out.println(" \n Introduce el número entero para generar la matriz cuadrada: ");
         int numero = teclado.nextInt();
-        if (numero > 70 || numero < 5) {
+        if (numero > 25 || numero < 5) {
             System.out.println("El número es incorrecto");
-            System.out.println("el rango es de 5-70");
+            System.out.println("el rango es de 5-25");
             generacionPorValor();
         } else {
 //            opcion = 1;
