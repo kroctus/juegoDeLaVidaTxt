@@ -19,7 +19,7 @@ public class Juego_Vida {
     private Generacion dos;
     private Generacion tres;
 //    private int opcion; // indica si la generación se ha creado con los valores del usuario(1) o aleatoriamente(2)
-    private Integer contador = 0;
+    private Integer contador = 1;
     private final Integer contadorGenAnterior = contador;
 
     /*Método principal que se encarga de realizar las llamadas a los diferentes métodos del juego*/
@@ -267,7 +267,7 @@ public class Juego_Vida {
             gestionGeneracion();
             System.out.println("\n Generación actual: " + this.contador);
             imprimirGeneracion1();
-            System.out.println(" \n Generación anterior" + this.contadorGenAnterior);
+            System.out.println(" \n Generación anterior: " + this.contadorGenAnterior);
             imprimirGeneracion2();
         } else {
             JOptionPane.showMessageDialog(null, "El programa ha finalizado");
