@@ -18,10 +18,21 @@ public class Juego_Vida {
     private Generacion uno;
     private Generacion dos;
     private Generacion tres;
-    private int opcion; // indica si la generación se ha creado con los valores del usuario(1) o aleatoriamente(2)
+//    private int opcion; // indica si la generación se ha creado con los valores del usuario(1) o aleatoriamente(2)
     private Integer contador = 0;
     private final Integer contadorGenAnterior = contador;
 
+     /*Método principal que se encarga de realizar las llamadas a los diferentes métodos del juego*/
+    public void EjecutarJuego(){
+        menuInicio();
+        imprimirGeneracion1();
+        generacionSiguiente();
+        
+        
+    }
+    
+    
+    //método que se encarga de dar la bienvenida al juego al usuario y que además sirve para seleccionar las primeras opciones de creación de la matriz de celulas
     public void menuInicio() {
         Scanner teclado = new Scanner(System.in);
         JOptionPane.showMessageDialog(null, "Bienvenido al juego de la vida :D");
@@ -161,7 +172,7 @@ public class Juego_Vida {
             System.out.println("el rango es de 5-70");
             generacionPorValor();
         } else {
-            opcion = 1;
+//            opcion = 1;
 
             // Creo la generación
             numeroCelulas = numero;
@@ -179,7 +190,7 @@ public class Juego_Vida {
 
     public void generacionAleatoria() {
        
-        opcion = 2;
+//        opcion = 2;
         int numero = Generacion.tamañoAleatorioMatriz();
         if (numero <= 70) {
             System.out.println("valor de numero aleatorio: " + numero);
@@ -196,6 +207,7 @@ public class Juego_Vida {
         }
     }
 
+    //Método que imprime la primera matriz de celulas
     public void imprimirGeneracion1() {
         Celula[][] aux = uno.copiarMatriz();
 
@@ -213,11 +225,53 @@ public class Juego_Vida {
 
     }
     
+    //Método que imprime la segunda matriz de celulas
+    public void imprimirGeneracion2(){
+        
+           Celula[][] aux = dos.copiarMatriz();
+
+        for (int x = 0; x < dos.getMatrizCelula().length; x++) {
+            for (int y = 0; y < aux[x].length; y++) {
+
+                System.out.print(" | ");
+                System.out.print(aux[x][y]);
+                System.out.print(" | ");
+
+            }
+            System.out.println();
+
+        }
+        
+    }
+
+   
     
     // método que se encarga de gestionar los cambios que sufren las generaciones  al seleccionar la opcion de "siguiente generación"
     public void gestionGeneracion(){
-        dos.setMatrizCelula(uno.getMatrizCelula());// pasamos el estado de la generacion 1 a la generación 2 para luego mostrarla por pantallay asi poder ver los cambios
+        dos=uno;// pasamos el estado de la generacion 1 a la generación 2 para luego mostrarla por pantallay asi poder ver los cambios
         analizarGeneracion(); // aplicamos la logica del programa sobre la generación 1 y así ver los cambios en la matriz
+        
+    }
+    
+    public void generacionSiguiente(){
+        this.contador++;
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("¿Quieres generar la siguiente generación?");
+        System.out.println(" \n S) Si");
+        System.out.println(" N) No");
+        
+        String opcion= teclado.nextLine(); // guarda la opción seleccioanda por el usuario
+        
+        if (opcion.equalsIgnoreCase("S")) {
+            gestionGeneracion();
+            System.out.println("\n Generación actual: " + this.contador);
+            imprimirGeneracion1();
+            System.out.println(" \n Generación anterior" + this.contadorGenAnterior);
+            imprimirGeneracion2();
+        }else {
+            JOptionPane.showMessageDialog(null, "El programa ha finalizado");
+        }
+        
         
     }
 
@@ -255,13 +309,13 @@ public class Juego_Vida {
         this.tres = tres;
     }
 
-    public int getOpcion() {
-        return opcion;
-    }
-
-    public void setOpcion(int opcion) {
-        this.opcion = opcion;
-    }
+//    public int getOpcion() {
+//        return opcion;
+//    }
+//
+//    public void setOpcion(int opcion) {
+//        this.opcion = opcion;
+//    }
 
     public Integer getContador() {
         return contador;
