@@ -5,6 +5,7 @@
  */
 package juego;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -17,7 +18,7 @@ public class Juego_Vida {
     private int numeroCelulas; //Representa el número de celulas en x e y
     private Generacion uno;
     private Generacion dos;
-    private Generacion tres;
+    private ArrayList <Generacion> generaciones = new ArrayList<>();// lista para guardar las generaciones que se van creando cada vez que el usuario crea la siguiente generación
 //    private int opcion; // indica si la generación se ha creado con los valores del usuario(1) o aleatoriamente(2)
     private Integer contador = 1;
     private final Integer contadorGenAnterior = contador;
@@ -26,6 +27,7 @@ public class Juego_Vida {
     public void EjecutarJuego() {
         menuInicio();
         imprimirGeneracion1();
+        //bucle
         generacionSiguiente();
 
     }
@@ -165,6 +167,7 @@ public class Juego_Vida {
 
         }
         copiarMatriz(aux, uno.getMatrizCelula());
+        generaciones.add(new Generacion(uno));
     }
     //método que copia el valor de dos matrices que se le pasen por parametro
     //los valores de la primera en la segunda
@@ -389,21 +392,6 @@ public class Juego_Vida {
         this.dos = dos;
     }
 
-    public Generacion getTres() {
-        return tres;
-    }
-
-    public void setTres(Generacion tres) {
-        this.tres = tres;
-    }
-
-//    public int getOpcion() {
-//        return opcion;
-//    }
-//
-//    public void setOpcion(int opcion) {
-//        this.opcion = opcion;
-//    }
     public Integer getContador() {
         return contador;
     }
