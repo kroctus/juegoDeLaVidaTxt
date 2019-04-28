@@ -66,16 +66,22 @@ public class Juego_Vida {
     public void analizarGeneracion() {
         int contadorVivas = 0; // cuenta el número de celulas vivas alrededor de una celula en concreto
         int contadorMuertas = 0; // cuenta el número de celulas muertas alrededor de una celula en concreto
-        Celula[][] aux = uno.getMatrizCelula();
+        Celula[][] aux = new Celula[uno.getMatrizCelula().length][uno.getMatrizCelula().length];
 
-        try {
+        this.copiarMatriz(aux, uno.getMatrizCelula()); // copiamos el estado de la matriz uno a la matriz aux para realizar los cambios sobre esta (aux)
+        // posteriormente devolveremos estos cambios a la matriz de la generación uno
+//        this.tres= new Generacion(this.uno.getMatrizCelula().length); // instanciamos la generación 3 con el mismo tamaño que la generación 1 para realizar una copia a continuación
+        dos = uno;// copiamos el estado de la matriz uno a la matriz de la geenración tres 
+        // el objetivo de realizar esta acción es guardar el estado orginal de la generación uno para luego mostrarla por pantalla
 
-            for (int i = 0; i < uno.getMatrizCelula().length; i++) {
-                for (int j = 0; j < uno.getMatrizCelula().length; j++) {
+        for (int i = 0; i < uno.getMatrizCelula().length; i++) {
+            for (int j = 0; j < uno.getMatrizCelula().length; j++) {
 
-                    /*Recorremos la matriz y viendo el estado de las posiciones que se encuentran alrededor de i,j que es la celula que estamos analizando
+                /*Recorremos la matriz y viendo el estado de las posiciones que se encuentran alrededor de i,j que es la celula que estamos analizando
                 En caso de que esten vivas se suma un valor al contador de celulas vivas, por otro lado si estan muertas se suma el valor al contadorMuestas*/
- /*CONTADORES*/
+                try {
+
+                    /*CONTADORES*/
                     //izquierda esta viva
                     if (aux[i][j - 1].isEstado() == true) {
                         contadorVivas++;
@@ -131,8 +137,6 @@ public class Juego_Vida {
                         contadorMuertas++;
                     }
 
-                    System.out.println("Contador vivas: " + contadorVivas);
-                    System.out.println("Contador muertas: " + contadorMuertas);
                     /*CONDICIONES*/
  /*si el contador de celulas vivas es mayor o igual que 3 y la celula esta viva, entonces la celula muere por sobrepoblación pero si esta esta muerta resucita*/
                     if (contadorVivas >= 3 && aux[i][j].isEstado() == true) {
@@ -155,13 +159,24 @@ public class Juego_Vida {
                         aux[i][j].resucitarCelula();
                     }
 
+                } catch (ArrayIndexOutOfBoundsException e) {
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("");
-        }
 
-        uno.setMatrizCelula(aux);
+        }
+        copiarMatriz(aux, uno.getMatrizCelula());
+    }
+    //método que copia el valor de dos matrices que se le pasen por parametro
+    //los valores de la primera en la segunda
+    // usamos este método para copiar los valores de la matriz de la generación uno con los de aux en el método analizarGeneración()
+    //equivale a un set
+
+    public void copiarMatriz(Celula[][] matriz1, Celula[][] matriz2) {
+        for (int i = 0; i < matriz1.length; i++) {
+            for (int j = 0; j < matriz1.length; j++) {
+                matriz1[i][j] = matriz2[i][j];
+            }
+        }
     }
 
     // método que gestiona los estados de la celula según lo desee el usuario una vez que se genere la matriz de celulas con la opcion de generación por valores
@@ -225,6 +240,7 @@ public class Juego_Vida {
     // el máximo valor que puede tomar este número es 25 y el minimo 7
     public void generacionPorValor() {
         Scanner teclado = new Scanner(System.in);
+
         System.out.println(" \n Introduce el número entero para generar la matriz cuadrada: ");
         int numero = teclado.nextInt();
         if (numero > 25 || numero < 5) {
@@ -254,10 +270,10 @@ public class Juego_Vida {
 
         switch (opcion) {
             case 1:
-                cambiarCelulas();
+                cambiarCelulas(); // si la opcion es que si llamamos al método encargado de cambiar las celulas
                 break;
             case 2:
-                return;
+                return; // si es no salimos del método
         }
     }
 
@@ -319,11 +335,16 @@ public class Juego_Vida {
 
     // método que se encarga de gestionar los cambios que sufren las generaciones  al seleccionar la opcion de "siguiente generación"
     public void gestionGeneracion() {
+        System.out.println("Generación anterior: " + this.contadorGenAnterior );
+        imprimirGeneracion1();// imprimos la generación sin cambios
         dos = uno;// pasamos el estado de la generacion 1 a la generación 2 para luego mostrarla por pantallay asi poder ver los cambios
         analizarGeneracion(); // aplicamos la logica del programa sobre la generación 1 y así ver los cambios en la matriz
-
+        System.out.println("Generación Actual: " + this.contador);
+        imprimirGeneracion1(); //imprimimos tras los cambios
     }
 
+    //método que hace la función de el boton siguiente generacion
+    //realiza las llamadas a los métodos pertinenetes para realizar los cambios en la generación según la lógica del juego
     public void generacionSiguiente() {
         this.contador++;
         Scanner teclado = new Scanner(System.in);
@@ -335,10 +356,7 @@ public class Juego_Vida {
 
         if (opcion.equalsIgnoreCase("S")) {
             gestionGeneracion();
-            System.out.println("\n Generación actual: " + this.contador);
-            imprimirGeneracion1();
-            System.out.println(" \n Generación anterior: " + this.contadorGenAnterior);
-            imprimirGeneracion2();
+
         } else {
             JOptionPane.showMessageDialog(null, "El programa ha finalizado");
         }
