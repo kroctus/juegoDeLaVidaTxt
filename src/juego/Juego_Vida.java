@@ -358,7 +358,7 @@ public class Juego_Vida {
 
     // método que se encarga de gestionar los cambios que sufren las generaciones  al seleccionar la opcion de "siguiente generación"
     public void gestionGeneracion() {
-        System.out.println("Generación anterior: " + this.contadorGenAnterior);
+        System.out.println("Generación anterior: " + (this.contadorGenAnterior=this.contador-1 ));
         System.out.println("");
         imprimirGeneracion1();// imprimos la generación sin cambios
         dos = uno;// pasamos el estado de la generacion 1 a la generación 2 para luego mostrarla por pantallay asi poder ver los cambios
@@ -381,9 +381,6 @@ public class Juego_Vida {
 
         if (opcion.equalsIgnoreCase("S")) {
             gestionGeneracion();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "El programa ha finalizado");
         }
 
     }
