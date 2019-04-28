@@ -33,6 +33,17 @@ public class Generacion {
 
     }
 
+    //Constructor que nos crea una generación nueva partir del estado de otra
+    public Generacion(Generacion aux) {
+        matrizCelula = new Celula[aux.getMatrizCelula().length][aux.getMatrizCelula().length];
+        int tamanio = aux.getMatrizCelula().length;
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+              matrizCelula[i][j]=aux.matrizCelula[i][j];
+            }
+        }
+    }
+
     public Celula[][] getMatrizCelula() {
         return matrizCelula;
     }
@@ -79,7 +90,7 @@ public class Generacion {
         return aux;
     }
 
-  //  método que copia el estado actual de la matriz de células y devuelve esta copia
+    //  método que copia el estado actual de la matriz de células y devuelve esta copia
     public Celula[][] copiarMatriz() {
 
         Celula[][] matrizCopia;
@@ -91,11 +102,11 @@ public class Generacion {
         }
         return matrizCopia;
     }
-    
-    public void reemplazarGeneracion(Celula[][] aux){
+
+    public void reemplazarGeneracion(Celula[][] aux) {
         for (int i = 0; i < matrizCelula.length; i++) {
             for (int j = 0; j < matrizCelula.length; j++) {
-                matrizCelula[i][j]= aux[i][j];
+                matrizCelula[i][j] = aux[i][j];
             }
         }
     }
@@ -105,7 +116,4 @@ public class Generacion {
         return "Generacion{" + "matrizCelula=" + matrizCelula + '}';
     }
 
-
-
-    
 }
