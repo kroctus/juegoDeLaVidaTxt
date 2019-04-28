@@ -5,24 +5,30 @@
  */
 package juego;
 
-import java.awt.Color;
 import java.util.Random;
-import javax.swing.JButton;
+
 
 /**
  *
  * @author gabriel
  */
-public class Celula extends JButton {
+public class Celula {
 
     private boolean estado;
+    
+    
 
     public Celula() {
         super();
         this.estado = false;
-        this.setBackground(Color.black);//Ponemos el color del botón negro
     }
 
+    /*GETTERS AND SETTERS*/
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+ 
     public Celula(boolean estado) {
         this.estado = estado;
     }
@@ -31,14 +37,13 @@ public class Celula extends JButton {
         return estado;
     }
 
+    //Método que simula la muerte de la célula pasando su estado a false
     public void matarCelula() {
-        this.estado = false;
-        this.setBackground(Color.black);//Ponemos el color del botón negro
+       setEstado(false);
     }
-
+//método que simula la resurección de la célula pasando su estado a true
     public void resucitarCelula() {
-        this.estado = true;
-        this.setBackground(Color.white);
+        setEstado(true);
     }
 
 
