@@ -149,6 +149,9 @@ public class Juego_Vida {
         uno.setMatrizCelula(aux); // aplicamos los cambios realizados sobre la matriz auxiliar y en la generación 1
     }
 
+    
+    
+            
     public void generacionPorValor() {
         Scanner teclado = new Scanner(System.in);
         System.out.println(" \n Introduce el número entero para generar la matriz cuadrada: ");
@@ -211,9 +214,10 @@ public class Juego_Vida {
     }
     
     
-    
+    // método que se encarga de gestionar los cambios que sufren las generaciones  al seleccionar la opcion de "siguiente generación"
     public void gestionGeneracion(){
-        dos.setMatrizCelula(uno.getMatrizCelula());
+        dos.setMatrizCelula(uno.getMatrizCelula());// pasamos el estado de la generacion 1 a la generación 2 para luego mostrarla por pantallay asi poder ver los cambios
+        analizarGeneracion(); // aplicamos la logica del programa sobre la generación 1 y así ver los cambios en la matriz
         
     }
 
