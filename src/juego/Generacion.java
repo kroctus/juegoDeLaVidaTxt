@@ -51,10 +51,10 @@ public class Generacion {
         matrizCelula[i][j] = tmp;
     }
 
-    //Método que genera un número aleatorio entre 5 y 70 que posteriormente será utilizado para llenar la matriz de celulas
+    //Método que genera un número aleatorio entre 5 y 25 que posteriormente será utilizado para llenar la matriz de celulas
     public static int tamañoAleatorioMatriz() {
         Random aleo = new Random();
-        int tamaño = aleo.nextInt(70 - 5 + 1) + 5;
+        int tamaño = aleo.nextInt(25 - 5 + 1) + 5;
         return tamaño;
     }
 

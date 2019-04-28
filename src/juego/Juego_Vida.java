@@ -161,7 +161,64 @@ public class Juego_Vida {
             System.out.println("");
         }
 
-        uno.setMatrizCelula(aux); // aplicamos los cambios realizados sobre la matriz auxiliar y en la generación 1
+        uno.setMatrizCelula(aux);
+    }
+
+    // método que gestiona los estados de la celula según lo desee el usuario una vez que se genere la matriz de celulas con la opcion de generación por valores
+    public void cambiarCelulas() {
+        Scanner teclado = new Scanner(System.in);
+        int parada;
+
+        do {
+            System.out.println("¿Qué quieres hacer?");
+            System.out.println("1) Matar célula");
+            System.out.println("2) Revivir célula");
+            int opcion = teclado.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    matarCelula();
+                    break;
+                case 2:
+                    resucitarCelula();
+                    break;
+
+            }
+
+            imprimirGeneracion1();
+
+            System.out.println("¿Realizar otro cambio?");
+            System.out.println("1) si");
+            System.out.println("2) no");
+            parada = teclado.nextInt();// guarda la opción del usuario para realizar o no otro cambio
+            /*En  caso de que la selección sea si se vuelve a ejecutar el método si es no se sale de este*/
+
+        } while (parada != 2);
+
+    }
+
+    //método que mata una celula que quiera el usuario
+    public void matarCelula() {
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Introduce la fila en la que se encuentra la célula:");
+        int fila = teclado.nextInt();
+        System.out.println("Introduce la columna: ");
+        int columna = teclado.nextInt();
+
+        Celula[][] aux = uno.getMatrizCelula();
+        aux[fila][columna].matarCelula();
+    }
+
+    //Método que resucita una celula que seleccione el usuario
+    public void resucitarCelula() {
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Introduce la fila en la que se encuentra la célula:");
+        int fila = teclado.nextInt();
+        System.out.println("Introduce la columna: ");
+        int columna = teclado.nextInt();
+
+        Celula[][] aux = uno.getMatrizCelula();
+        aux[fila][columna].resucitarCelula();
     }
 
     // método que genera la matriz de celula en base al número entero que introduce el usuario por teclado
@@ -188,14 +245,27 @@ public class Juego_Vida {
                 }
             }
         }
+        imprimirGeneracion1(); // imprimimos la generación
 
+        System.out.println("¿Quieres gestionar las células?");
+        System.out.println("1) si");
+        System.out.println("2) no");
+        int opcion = teclado.nextInt(); // guarda la seleccion del usuario si gestionar celulas o no  si la opcion es no se sale del método
+
+        switch (opcion) {
+            case 1:
+                cambiarCelulas();
+                break;
+            case 2:
+                return;
+        }
     }
 
     public void generacionAleatoria() {
 
 //        opcion = 2;
         int numero = Generacion.tamañoAleatorioMatriz();
-        if (numero <= 70) {
+        if (numero <= 25) {
             System.out.println("valor de numero aleatorio: " + numero);
             // Creo la generación
             uno = new Generacion(numero);
