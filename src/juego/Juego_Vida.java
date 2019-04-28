@@ -18,17 +18,23 @@ public class Juego_Vida {
     private int numeroCelulas; //Representa el número de celulas en x e y
     private Generacion uno;
     private Generacion dos;
-    private ArrayList <Generacion> generaciones = new ArrayList<>();// lista para guardar las generaciones que se van creando cada vez que el usuario crea la siguiente generación
+    private ArrayList<Generacion> generaciones = new ArrayList<>();// lista para guardar las generaciones que se van creando cada vez que el usuario crea la siguiente generación
 //    private int opcion; // indica si la generación se ha creado con los valores del usuario(1) o aleatoriamente(2)
     private Integer contador = 1;
-    private final Integer contadorGenAnterior = contador;
+    private Integer contadorGenAnterior = contador;
 
     /*Método principal que se encarga de realizar las llamadas a los diferentes métodos del juego*/
     public void EjecutarJuego() {
-        menuInicio();
-        imprimirGeneracion1();
-        //bucle
-        generacionSiguiente();
+        Scanner teclado = new Scanner(System.in);
+
+            menuInicio();
+            imprimirGeneracion1();
+        String salir = "";// gauarda la opción del usuario dentro del bucle
+        do {
+            generacionSiguiente();
+            System.out.println("¿Quiéres seguir con la ejecución? " + "si " + "/" + " no");
+            salir = teclado.nextLine();
+        } while (compararGeneraciones()!=true|| salir.equalsIgnoreCase("si"));
 
     }
 
@@ -50,6 +56,20 @@ public class Juego_Vida {
                 break;
         }
 
+    }
+
+    //método que compara las diferentes generaciones que están dentro de la lista de generaciones y devuelve true en caso de que dos generaciones sean iguales
+    //en caso de que no sean iguales devuelve falso
+    // este valor será la condición de parada del bucle en ejecutarJuego()
+    public boolean compararGeneraciones() {
+        for (Generacion generacione : generaciones) {
+            Generacion tmp;
+            tmp = generacione;
+            if (generacione.equals(tmp) == true) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*ANALIZAR_GENERACION*/
@@ -338,11 +358,13 @@ public class Juego_Vida {
 
     // método que se encarga de gestionar los cambios que sufren las generaciones  al seleccionar la opcion de "siguiente generación"
     public void gestionGeneracion() {
-        System.out.println("Generación anterior: " + this.contadorGenAnterior );
+        System.out.println("Generación anterior: " + this.contadorGenAnterior);
+        System.out.println("");
         imprimirGeneracion1();// imprimos la generación sin cambios
         dos = uno;// pasamos el estado de la generacion 1 a la generación 2 para luego mostrarla por pantallay asi poder ver los cambios
         analizarGeneracion(); // aplicamos la logica del programa sobre la generación 1 y así ver los cambios en la matriz
         System.out.println("Generación Actual: " + this.contador);
+        System.out.println("");
         imprimirGeneracion1(); //imprimimos tras los cambios
     }
 
