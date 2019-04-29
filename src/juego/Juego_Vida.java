@@ -27,14 +27,14 @@ public class Juego_Vida {
     public void EjecutarJuego() {
         Scanner teclado = new Scanner(System.in);
 
-            menuInicio();
-            imprimirGeneracion1();
+        menuInicio();
+        imprimirGeneracion1();
         String salir = "";// gauarda la opción del usuario dentro del bucle
         do {
             generacionSiguiente();
             System.out.println("¿Quiéres seguir con la ejecución? " + "si " + "/" + " no");
             salir = teclado.nextLine();
-        } while (compararGeneraciones()!=true|| salir.equalsIgnoreCase("si"));
+        } while (compararGeneraciones() == false || salir.equalsIgnoreCase("si"));
 
     }
 
@@ -326,9 +326,11 @@ public class Juego_Vida {
         for (int x = 0; x < uno.getMatrizCelula().length; x++) {
             for (int y = 0; y < aux[x].length; y++) {
 
-                System.out.print(" | ");
-                System.out.print(aux[x][y]);
-                System.out.print(" | ");
+                if (aux[x][y].isEstado() == true) {
+                    System.out.printf(" O ");
+                } else if (aux[x][y].isEstado() == false) {
+                    System.out.printf(" X ");
+                }
 
             }
             System.out.println();
@@ -345,9 +347,11 @@ public class Juego_Vida {
         for (int x = 0; x < dos.getMatrizCelula().length; x++) {
             for (int y = 0; y < aux[x].length; y++) {
 
-                System.out.print(" | ");
-                System.out.print(aux[x][y]);
-                System.out.print(" | ");
+                if (aux[x][y].isEstado() == true) {
+                    System.out.printf(" O ");
+                } else if (aux[x][y].isEstado() == false) {
+                    System.out.printf(" X ");
+                }
 
             }
             System.out.println();
@@ -358,7 +362,7 @@ public class Juego_Vida {
 
     // método que se encarga de gestionar los cambios que sufren las generaciones  al seleccionar la opcion de "siguiente generación"
     public void gestionGeneracion() {
-        System.out.println("Generación anterior: " + (this.contadorGenAnterior=this.contador-1 ));
+        System.out.println("Generación anterior: " + (this.contadorGenAnterior = this.contador - 1));
         System.out.println("");
         imprimirGeneracion1();// imprimos la generación sin cambios
         dos = uno;// pasamos el estado de la generacion 1 a la generación 2 para luego mostrarla por pantallay asi poder ver los cambios
@@ -381,6 +385,8 @@ public class Juego_Vida {
 
         if (opcion.equalsIgnoreCase("S")) {
             gestionGeneracion();
+        } else {
+            return;
         }
 
     }
@@ -418,14 +424,14 @@ public class Juego_Vida {
     public void setContador(Integer contador) {
         this.contador = contador;
     }
-    
+
     // método main del juego
-      public static void main(String[] args) {
-        
+    public static void main(String[] args) {
+
         Juego_Vida juego = new Juego_Vida();
-        
+
         juego.EjecutarJuego();
-        
+
     }
 
 }
