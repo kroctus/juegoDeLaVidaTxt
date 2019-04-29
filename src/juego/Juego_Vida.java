@@ -418,5 +418,14 @@ public class Juego_Vida {
     public void setContador(Integer contador) {
         this.contador = contador;
     }
+    
+    // método main del juego
+      public static void main(String[] args) {
+        
+        Juego_Vida juego = new Juego_Vida();
+        
+        juego.EjecutarJuego();
+        
+    }
 
 }
