@@ -30,11 +30,12 @@ public class Juego_Vida {
         menuInicio();
         imprimirGeneracion1();
         String salir = "";// gauarda la opción del usuario dentro del bucle
+        // bucle que sive para mantener la evolución de las generaciones siempre que el usuario así lo desee o no se encuentren generaciones iguales, en cuyo caso se detendrá el programa
         do {
             generacionSiguiente();
             System.out.println("¿Quiéres seguir con la ejecución? " + "si " + "/" + " no");
             salir = teclado.nextLine();
-        } while (compararGeneraciones() == false || salir.equalsIgnoreCase("si"));
+        } while (compararGeneraciones() == false && salir.equalsIgnoreCase("si"));
 
     }
 
@@ -66,6 +67,7 @@ public class Juego_Vida {
             Generacion tmp;
             tmp = generacione;
             if (generacione.equals(tmp) == true) {
+                JOptionPane.showMessageDialog(null, "Se han encontrado dos generaciones iguales , el programa se detendrá");
                 return true;
             }
         }
@@ -327,9 +329,9 @@ public class Juego_Vida {
             for (int y = 0; y < aux[x].length; y++) {
 
                 if (aux[x][y].isEstado() == true) {
-                    System.out.printf(" O ");
+                    System.out.printf(" O "); // si esta viva (true) se mostrará una 0
                 } else if (aux[x][y].isEstado() == false) {
-                    System.out.printf(" X ");
+                    System.out.printf(" X "); // si esta muerta (false) se mostrará una X
                 }
 
             }
@@ -386,7 +388,7 @@ public class Juego_Vida {
         if (opcion.equalsIgnoreCase("S")) {
             gestionGeneracion();
         } else {
-            return;
+            JOptionPane.showMessageDialog(null, "No se generarán más generaciones");
         }
 
     }
